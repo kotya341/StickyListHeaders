@@ -36,7 +36,7 @@ public class StickyListHeadersListView extends FrameLayout {
 	}
 
 	/* --- Children --- */
-	private WrapperViewList mList;
+	protected WrapperViewList mList;
 	private View mHeader;
 
 	/* --- Header state --- */
@@ -87,8 +87,6 @@ public class StickyListHeadersListView extends FrameLayout {
 		mList.setDividerHeight(0);
 
 		mList.setLifeCycleListener(new WrapperViewListLifeCycleListener());
-		mList.setOnScrollListener(new WrapperListScrollListener());
-		addView(mList);
 
 		if (attrs != null) {
 			TypedArray a = context.getTheme()
@@ -362,7 +360,7 @@ public class StickyListHeadersListView extends FrameLayout {
 
 	}
 
-	private class WrapperListScrollListener implements OnScrollListener {
+	protected class WrapperListScrollListener implements OnScrollListener {
 
 		@Override
 		public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
