@@ -18,10 +18,10 @@ The goal of this project is to deliver a high performance replacement to `ListVi
 Installing
 ---------------
 ###Gradle
-Add the following gradle dependency exchanging `2.x.x` for the latest release.
+Add the following gradle dependency exchanging `x.x.x` for the latest release.
 ```groovy
 dependencies {
-    compile 'se.emilsjolander:stickylistheaders:2.x.x@aar'
+    compile 'se.emilsjolander:stickylistheaders:x.x.x'
 }
 ```
 
@@ -166,16 +166,25 @@ public void setAreHeadersSticky(boolean areHeadersSticky);
 public boolean areHeadersSticky();
 ```
 
-A OnHeaderClickListener is the header version of OnItemClickListener. This is the setter for it and the interface of the listener. The currentlySticky boolean flag indicated if the header that was clicked was sticking to the top at the time it was clicked.
+A `OnHeaderClickListener` is the header version of OnItemClickListener. This is the setter for it and the interface of the listener. The currentlySticky boolean flag indicated if the header that was clicked was sticking to the top at the time it was clicked.
 ```java
-public void setOnHeaderClickListener(OnHeaderClickListener onHeaderClickListener);
+public void setOnHeaderClickListener(OnHeaderClickListener listener);
 
 public interface OnHeaderClickListener {
     public void onHeaderClick(StickyListHeadersListView l, View header, int itemPosition, long headerId, boolean currentlySticky);
 }
 ```
 
-Here are two methods added to the API for inspecting the children of the underlying `ListView`.
+A `OnStickyHeaderOffsetChangedListener` is a Listener used for listening to when the sticky header slides out of the screen. The offset parameter will slowly grow to be the same size as the headers height. Use the listeners callback to transform the header in any way you see fit, the standard android contacts app dims the text for example.
+```java
+public void setOnStickyHeaderOffsetChangedListener(OnStickyHeaderOffsetChangedListener listener);
+
+public interface OnStickyHeaderOffsetChangedListener {
+    public void onStickyHeaderOffsetChanged(StickyListHeadersListView l, View header, int offset);
+}
+```
+
+Here are two methods added to the API for inspecting the children of the underlying `ListView`. I could not override the normal `getChildAt()` and `getChildCount()` methods as that would mess up the underlying measurement system of the `FrameLayout` wrapping the `ListView`.
 ```java
 public View getListChildAt(int index);
 public int getListChildCount();
@@ -192,22 +201,3 @@ Contributing
 Contributions are very welcome. Now that this library has grown in popularity i have a hard time keeping upp with all the issues while tending to a multitude of other projects as well as school. So if you find a bug in the library or want a feature and think you can fix it yourself, fork + pull request and i will greatly appreciate it!
 
 I love getting pull requests for new features as well as bugs. However, when it comes to new features please also explain the use case and way you think the library should include it. If you don't want to start coding a feature without knowing if the feature will have chance of being included, open an issue and we can discuss the feature!
-
-
-License
--------
-```
-Copyright 2013 Emil Sjölander
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
