@@ -396,7 +396,7 @@ public class StickyListHeadersListView extends FrameLayout {
 
     }
 
-    private class WrapperListScrollListener implements OnScrollListener {
+    public class WrapperListScrollListener implements OnScrollListener {
 
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem,
